@@ -1,8 +1,0 @@
-"Nikita":"Katya","Masha";
-"Sam":"Ilina";
-"Katya":"Nikita","Andrew";
-"Masha":;
-"Kostya":"Ilina";
-"Ilina":"Nikita";
-"Ira":"Andrew";
-"Andrew":"Ira";
