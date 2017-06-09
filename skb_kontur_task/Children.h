@@ -30,5 +30,6 @@ public:
 private:
 	map <string, int> _childIDPairs;
 	Matrix<bool> _sympathyMatrix;
+	int _count = 0;
 };
 

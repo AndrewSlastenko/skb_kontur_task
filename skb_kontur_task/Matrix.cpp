@@ -11,10 +11,11 @@ Matrix<T>::Matrix() {
 
 template <typename T>
 Matrix<T>::Matrix(int length) {
-	_matrix = new vector<T>(length, 0);
+	_matrix = new vector<T>(length*length, 0);
 	_count = length;
 }
 
+//template <typename T>
 
 template <typename T>
 Matrix<T>::~Matrix() {
