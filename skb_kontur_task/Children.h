@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "Matrix.h"
+#include "ZeroChildrenGiven.h"
 
 using std::string;
 using std::map;
@@ -11,8 +12,8 @@ using std::map;
 class Children
 {
 public:
-	Children();
-	~Children();
+	Children() = default;
+	~Children() = default;
 	void readChildrenFromFile(string);
 	void readSympathyFromFile(string);
 	void insertNewChild(string);
