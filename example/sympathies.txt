@@ -1,4 +1,4 @@
-Masha:Pasha;
+Masha:Pasha, Sasha;
 Katya:Pasha;
 Pasha:Masha;
 Sasha:Masha;
