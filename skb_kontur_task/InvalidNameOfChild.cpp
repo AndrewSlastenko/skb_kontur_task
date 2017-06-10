@@ -8,5 +8,5 @@ InvalidNameOfChild::InvalidNameOfChild(std::string message) {
 
 
 const char* InvalidNameOfChild::what() const noexcept {
-	return ("Zero children was given: " + _message).c_str();
+	return ("Invalid name of child (mb doesn't exist): " + _message).c_str();
 }

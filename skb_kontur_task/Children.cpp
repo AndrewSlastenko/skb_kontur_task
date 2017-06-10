@@ -2,11 +2,18 @@
 
 
 
+Children::Children(string pathToNames, string pathToSympathy) {
+	readChildrenFromFile(pathToNames);
+	_sympathyMatrix = new Matrix<bool>(_count*_count);
+	readSympathyFromFile(pathToSympathy);
+}
+
+
 int Children::getNameId(string name) {
 	auto it = _childIDPairs.find(name);
-	//if (it != _childIDPairs.end()) 
+	if (it == _childIDPairs.end())
+		throw InvalidNameOfChild(name);
 	return it->second;
-	//else throw
 }
 
 void Children::readChildrenFromFile(string pathToFile) {
@@ -18,8 +25,7 @@ void Children::readChildrenFromFile(string pathToFile) {
 		++numOfLines;
 	}
 	if (numOfLines == 0)
-		throw ZeroChildrenGiven("maybe file is empty?");
-	_sympathyMatrix = Matrix<bool>(_count);
+		throw EmptyFile(pathToFile);
 }
 
 
@@ -59,12 +65,11 @@ void Children::readSympathyFromFile(string pathToFile) {
 				}
 				break;
 			}
-			//mark
 		}
-
 		++numOfLines;
 	}
-	//mb check for zero sympathy
+	if (numOfLines == 0)
+		throw EmptyFile(pathToFile);
 }
 
 
@@ -75,18 +80,18 @@ void Children::insertNewChild(string name) {
 
 
 void Children::setNewSympathy(string nameFrom, string nameTo) {
-	_sympathyMatrix.at(getNameId(nameFrom), getNameId(nameTo)) = true;
+	_sympathyMatrix->at(getNameId(nameFrom), getNameId(nameTo)) = true;
 }
 
 
 /*список всех не любимчиков, то есть детей которые никому не симпатичны*/
-void Children::showUnlikedChildren() {
-	map <string, int> tempMap; //можно заменить на вектор строк (второй инт не нужен)
+void Children::showUnlovedChildren() {
+	std::map <string, int> tempMap; //можно заменить на вектор строк (второй инт не нужен)
 	bool unlikeFlag = true;
 	for (auto const &child : _childIDPairs) {
 		unlikeFlag = true;
 		for (int i = 0; i < _count; i++) {
-			if (_sympathyMatrix.at(i, child.second)) {
+			if (_sympathyMatrix->at(i, child.second)) {
 				unlikeFlag = false;
 				break;
 			}
@@ -105,20 +110,20 @@ void Children::showUnlikedChildren() {
 /*список всех несчастных детей, то есть тех,
 которые не симпатичны ни одному ребенку из тех, кто симпатичен им самим
 исключением тех детей, которым никто не симпатичен.*/
-void Children::showUnluckyChildren() {
+void Children::showUnhappyChildren() {
 	int numOfSymp = 0;
 	bool unluckyFlag = true;
-	map <string, int> tempMap;
+	std::map <string, int> tempMap;
 	for (auto const &child : _childIDPairs) {
 		unluckyFlag = true;
 		numOfSymp = 0;
 		for (int i = 0; i < _count; i++) {
-			if (_sympathyMatrix.at(child.second, i) && _sympathyMatrix.at(i, child.second)) {
+			if (_sympathyMatrix->at(child.second, i) && _sympathyMatrix->at(i, child.second)) {
 				unluckyFlag = false;
 				++numOfSymp;
 				break;
 			}
-			else if (_sympathyMatrix.at(child.second, i)) {
+			else if (_sympathyMatrix->at(child.second, i)) {
 				++numOfSymp;
 			}
 		}
@@ -135,13 +140,13 @@ void Children::showUnluckyChildren() {
 
 /*список любимчиков, то есть всех детей,
 которые симпатичны максимальному количеству других детей.*/
-void Children::showLikedChildren() {
+void Children::showLovedChildren() {
 	std::vector<std::pair<int, string>> sympathyCounts;
 	int maxCount = 0;
 	for (auto const &child : _childIDPairs) {
 		int tempCount = 0;
 		for (int i = 0; i < _count; i++) {
-			if (_sympathyMatrix.at(i, child.second))
+			if (_sympathyMatrix->at(i, child.second))
 				++tempCount;
 		}
 		if (tempCount >= maxCount)

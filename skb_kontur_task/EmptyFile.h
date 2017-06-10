@@ -2,13 +2,13 @@
 #include <exception>
 #include <string>
 
-class ZeroChildrenGiven :
+class EmptyFile :
 	public std::exception
 {
 public:
-	ZeroChildrenGiven() = default;
-	ZeroChildrenGiven(std::string);
-	~ZeroChildrenGiven() = default;
+	EmptyFile() = default;
+	EmptyFile(std::string);
+	~EmptyFile() = default;
 	const char* what() const noexcept;
 private:
 	std::string _message;

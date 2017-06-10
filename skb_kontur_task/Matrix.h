@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "IncorrentIndex.h"
 
 using std::vector;
 
@@ -9,7 +10,7 @@ class Matrix
 public:
 	Matrix();
 	Matrix(int);
-	~Matrix();
+	~Matrix() = default;
 	//void add();
 	T &at(int, int);
 	//const T &at(int, int) const;
