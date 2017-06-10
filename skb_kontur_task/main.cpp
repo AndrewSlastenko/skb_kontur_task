@@ -13,8 +13,8 @@ bool checkFileForExisting(const string &path1, const string &path2) {
 
 int main(int argc, char* argv[]) {
 	setlocale(LC_ALL, "");
-	string pathToNames = "C:\\Users\\4glazy\\Documents\\Visual Studio 2017\\Projects\\skb_kontur_task\\Debug\\children.txt";
-	string pathToSympathy = "C:\\Users\\4glazy\\Documents\\Visual Studio 2017\\Projects\\skb_kontur_task\\Debug\\sympathies.txt";
+	string pathToNames;
+	string pathToSympathy;
 	/*for (int i = 0; i < argc; i++) { //дебаг инфа
 		cout << "PARAM[" << i << "]: " <<  argv[i] << std::endl;
 	}*/
