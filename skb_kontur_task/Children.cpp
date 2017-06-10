@@ -8,6 +8,9 @@ Children::Children(string pathToNames, string pathToSympathy) {
 	readSympathyFromFile(pathToSympathy);
 }
 
+Children::~Children() {
+	delete _sympathyMatrix;
+}
 
 int Children::getNameId(string name) {
 	auto it = _childIDPairs.find(name);

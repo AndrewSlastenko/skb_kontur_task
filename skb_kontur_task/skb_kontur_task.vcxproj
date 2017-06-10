@@ -115,7 +115,6 @@
     <ClCompile Include="IncorrentIndex.cpp" />
     <ClCompile Include="InvalidNameOfChild.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="EmptyFile.cpp" />
   </ItemGroup>
   <ItemGroup>

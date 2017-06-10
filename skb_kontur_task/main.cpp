@@ -1,7 +1,4 @@
-#pragma once
 #include "Children.h"
-#include <iostream>
-#include <fstream>
 
 using std::cout;
 

@@ -15,8 +15,8 @@ class Children
 {
 public:
 	Children() = delete;
-	Children(string, string);
-	~Children() = default;
+	Children(string pathToNames, string pathToSympathy);
+	~Children();
 	/*список всех не любимчиков, то есть детей которые никому не симпатичны*/
 	void showUnlovedChildren();
 	/*список всех несчастных детей, то есть тех, 
@@ -37,4 +37,3 @@ private:
 	void setNewSympathy(string, string);
 	int getNameId(string);
 };
-
