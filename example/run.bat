@@ -1,0 +1,1 @@
+skb_kontur_task.exe "C:\\Users\\4glazy\\Documents\\Visual Studio 2017\\Projects\\skb_kontur_task\\Debug\\children.txt" "C:\\Users\\4glazy\\Documents\\Visual Studio 2017\\Projects\\skb_kontur_task\\Debug\\sympathies.txt"

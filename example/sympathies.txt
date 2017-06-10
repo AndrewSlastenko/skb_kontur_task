@@ -1,0 +1,4 @@
+Masha:Pasha;
+Katya:Pasha;
+Pasha:Masha;
+Sasha:Masha;

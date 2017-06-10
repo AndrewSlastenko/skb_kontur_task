@@ -8,15 +8,14 @@
 #include "EmptyFile.h"
 #include "InvalidNameOfChild.h"
 
-
-using std::string;
+typedef unsigned char bool_t; //чтобы не использовалась специализация vector<bool>
 
 class Children
 {
 public:
 	Children() = delete;
-	Children(string pathToNames, string pathToSympathy);
-	~Children();
+	Children(std::string pathToNames, std::string pathToSympathy);
+	~Children() = default;
 	/*список всех не любимчиков, то есть детей которые никому не симпатичны*/
 	void showUnlovedChildren();
 	/*список всех несчастных детей, то есть тех, 
@@ -27,13 +26,13 @@ public:
 	которые симпатичны максимальному количеству других детей.*/
 	void showLovedChildren();
 private:
-	std::map<string, int> _childIDPairs;
-	Matrix<bool> *_sympathyMatrix;
+	std::map<std::string, int> _childIDPairs;
+	Matrix<bool_t> _sympathyMatrix;
 	int _count = 0;
 
-	void readChildrenFromFile(string);
-	void readSympathyFromFile(string);
-	void insertNewChild(string);
-	void setNewSympathy(string, string);
-	int getNameId(string);
+	void readChildrenFromFile(std::string);
+	void readSympathyFromFile(std::string);
+	void insertNewChild(std::string);
+	void setNewSympathy(std::string, std::string);
+	int getNameId(std::string);
 };

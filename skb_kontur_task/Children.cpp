@@ -1,29 +1,27 @@
 #include "Children.h"
 
-
+using std::string;
+using std::getline;
 
 Children::Children(string pathToNames, string pathToSympathy) {
 	readChildrenFromFile(pathToNames);
-	_sympathyMatrix = new Matrix<bool>(_count*_count);
+	_sympathyMatrix = Matrix<bool_t>(_childIDPairs.size());
 	readSympathyFromFile(pathToSympathy);
 }
 
-Children::~Children() {
-	delete _sympathyMatrix;
-}
 
 int Children::getNameId(string name) {
 	auto it = _childIDPairs.find(name);
-	if (it == _childIDPairs.end())
-		throw InvalidNameOfChild(name);
+	/*if (it == _childIDPairs.end())
+		throw InvalidNameOfChild(name);*/
 	return it->second;
 }
 
 void Children::readChildrenFromFile(string pathToFile) {
 	std::ifstream file(pathToFile);
-	string name;
+	std::string name;
 	int numOfLines = 0;
-	while (std::getline(file, name)) {
+	while (getline(file, name)) {
 		insertNewChild(name);
 		++numOfLines;
 	}
@@ -54,6 +52,7 @@ void Children::readSympathyFromFile(string pathToFile) {
 			case ';':
 				if (from != to)
 					setNewSympathy(from, to);
+				from = "";
 				to = "";
 				break;
 			case ' ':
@@ -83,7 +82,7 @@ void Children::insertNewChild(string name) {
 
 
 void Children::setNewSympathy(string nameFrom, string nameTo) {
-	_sympathyMatrix->at(getNameId(nameFrom), getNameId(nameTo)) = true;
+	_sympathyMatrix.at(getNameId(nameFrom), getNameId(nameTo)) = true;
 }
 
 
@@ -94,7 +93,7 @@ void Children::showUnlovedChildren() {
 	for (auto const &child : _childIDPairs) {
 		unlikeFlag = true;
 		for (int i = 0; i < _count; i++) {
-			if (_sympathyMatrix->at(i, child.second)) {
+			if (_sympathyMatrix.at(i, child.second)) {
 				unlikeFlag = false;
 				break;
 			}
@@ -103,9 +102,9 @@ void Children::showUnlovedChildren() {
 			tempMap.insert(child);
 		}
 	}
-	std::cout << "|-----------Нелюбимчки-------------";
+	std::cout << "|-----------The most unloved kids-------------" << std::endl;
 	for (auto const &unlikedChild : tempMap) {
-		std::cout << "|/t" << unlikedChild.first << std::endl;
+		std::cout << "|	" << unlikedChild.first << std::endl;
 	}
 }
 
@@ -121,12 +120,12 @@ void Children::showUnhappyChildren() {
 		unluckyFlag = true;
 		numOfSymp = 0;
 		for (int i = 0; i < _count; i++) {
-			if (_sympathyMatrix->at(child.second, i) && _sympathyMatrix->at(i, child.second)) {
+			if (_sympathyMatrix.at(child.second, i) && _sympathyMatrix.at(i, child.second)) {
 				unluckyFlag = false;
 				++numOfSymp;
 				break;
 			}
-			else if (_sympathyMatrix->at(child.second, i)) {
+			else if (_sympathyMatrix.at(child.second, i)) {
 				++numOfSymp;
 			}
 		}
@@ -134,9 +133,9 @@ void Children::showUnhappyChildren() {
 			tempMap.insert(child);
 		}
 	}
-	std::cout << "|----------Несчастные дети---------";
+	std::cout << "|----------Unhappy kids---------" << std::endl;
 	for (auto const &unluckyChild : tempMap) {
-		std::cout << "|/t" << unluckyChild.first << std::endl;
+		std::cout << "|	" << unluckyChild.first << std::endl;
 	}
 }
 
@@ -149,16 +148,16 @@ void Children::showLovedChildren() {
 	for (auto const &child : _childIDPairs) {
 		int tempCount = 0;
 		for (int i = 0; i < _count; i++) {
-			if (_sympathyMatrix->at(i, child.second))
+			if (_sympathyMatrix.at(i, child.second))
 				++tempCount;
 		}
 		if (tempCount >= maxCount)
 			maxCount = tempCount;
 		sympathyCounts.push_back(std::pair<int, string>(tempCount, child.first));
 	}
-	std::cout << "|------------Любимчки--------------";
+	std::cout << "|---------The most loved kids----------" << std::endl;
 	for (auto const &ent : sympathyCounts) {
 		if (ent.first >= maxCount)
-			std::cout << "|/t" << ent.second << std::endl;
+			std::cout << "|	" << ent.second << std::endl;
 	}
 }
