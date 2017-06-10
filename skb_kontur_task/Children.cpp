@@ -12,8 +12,8 @@ Children::Children(string pathToNames, string pathToSympathy) {
 
 int Children::getNameId(string name) {
 	auto it = _childIDPairs.find(name);
-	/*if (it == _childIDPairs.end())
-		throw InvalidNameOfChild(name);*/
+	if (it == _childIDPairs.end())
+		throw InvalidNameOfChild(name);
 	return it->second;
 }
 
